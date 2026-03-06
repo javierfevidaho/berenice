@@ -131,9 +131,48 @@ export interface ContactT {
   cityOptions: string[];
   submit: string;
   sending: string;
-  success: string;
-  error: string;
+  generating: string;
   privacy: string;
+  // Success modal
+  successTitle: string;
+  successSubtitle: string;
+  refLabel: string;
+  sendToBerenice: string;
+  sendCopy: string;
+  downloadPdf: string;
+  newQuote: string;
+  // PDF labels
+  pdf: {
+    title: string;
+    subtitle: string;
+    quoteRequest: string;
+    ref: string;
+    date: string;
+    clientInfo: string;
+    serviceDetails: string;
+    labelName: string;
+    labelPhone: string;
+    labelEmail: string;
+    labelService: string;
+    labelCity: string;
+    labelDate: string;
+    labelNotes: string;
+    noNotes: string;
+    footer: string;
+    guarantee: string;
+    validDays: string;
+  };
+  // WhatsApp message labels
+  wa: {
+    bereniceHeader: string;
+    clientSection: string;
+    serviceSection: string;
+    notesSection: string;
+    clientHeader: string;
+    clientGreeting: string;
+    clientSummary: string;
+    questions: string;
+  };
 }
 
 export interface FooterT {

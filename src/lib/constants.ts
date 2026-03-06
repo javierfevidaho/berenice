@@ -3,8 +3,10 @@ export const BUSINESS = {
   shortName: "Sparkle Clean",
   owner: "Berenice",
   tagline: "Professional Cleaning Services in Boise, Idaho",
-  phone: process.env.NEXT_PUBLIC_PHONE ?? "(208) 555-0100",
+  phone: process.env.NEXT_PUBLIC_PHONE ?? "(208) 919-6397",
   email: process.env.NEXT_PUBLIC_EMAIL ?? "info@berenicessparkleclean.com",
+  // WhatsApp number in international format (no + or spaces)
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "12089196397",
   address: {
     street: "Boise",
     city: "Boise",
