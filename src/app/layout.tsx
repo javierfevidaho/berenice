@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { BUSINESS, SITE_URL } from "@/lib/constants";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
     template: "%s | Berenice's Sparkle Clean",
   },
   description:
-    "Berenice's Sparkle Clean offers affordable house cleaning, office cleaning, and commercial cleaning in Boise, Nampa, Caldwell, Meridian, and the Treasure Valley Idaho. 20 years of experience. Free quotes!",
+    "Berenice's Sparkle Clean offers affordable house cleaning, office cleaning, and commercial cleaning in Boise, Nampa, Caldwell, Meridian, and the Treasure Valley Idaho. 20 years of experience. Free quotes! También hablamos Español.",
   keywords: [
     "cleaning services Boise Idaho",
     "house cleaning Nampa ID",
@@ -22,11 +23,10 @@ export const metadata: Metadata = {
     "affordable cleaning Meridian Idaho",
     "maid service Treasure Valley",
     "commercial cleaning Boise",
-    "deep cleaning Boise ID",
-    "move out cleaning Boise Idaho",
+    "limpieza de casas Boise Idaho",
+    "servicio de limpieza Nampa Idaho",
   ],
   authors: [{ name: "Berenice's Sparkle Clean" }],
-  creator: "Berenice's Sparkle Clean",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -42,14 +42,8 @@ export const metadata: Metadata = {
     description:
       "Affordable professional cleaning in Boise, Nampa, Caldwell & Meridian. Residential, office & commercial. Free quotes!",
   },
-  alternates: {
-    canonical: SITE_URL,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
+  alternates: { canonical: SITE_URL },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 };
 
 const jsonLd = {
@@ -58,7 +52,7 @@ const jsonLd = {
   "@id": `${SITE_URL}/#business`,
   name: BUSINESS.name,
   description:
-    "Professional residential, office and commercial cleaning services in Boise, Nampa, Caldwell, Meridian and the Treasure Valley, Idaho.",
+    "Professional residential, office and commercial cleaning services in Boise, Nampa, Caldwell, Meridian and the Treasure Valley, Idaho. Bilingual English/Spanish team.",
   url: SITE_URL,
   telephone: BUSINESS.phone,
   email: BUSINESS.email,
@@ -87,7 +81,6 @@ const jsonLd = {
     { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "07:00", closes: "19:00" },
     { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "08:00", closes: "17:00" },
   ],
-  sameAs: [],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Cleaning Services",
@@ -111,7 +104,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${inter.className} antialiased bg-white text-slate-800`}>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
         <Analytics />
         <SpeedInsights />
       </body>

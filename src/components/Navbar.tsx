@@ -3,16 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BUSINESS } from "@/lib/constants";
-
-const navLinks = [
-  { label: "Services", href: "/#services" },
-  { label: "Why Us", href: "/#why-us" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "Service Areas", href: "/#areas" },
-  { label: "Contact", href: "/#contact" },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
+  const { lang, t, toggle } = useLanguage();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -48,7 +42,7 @@ export default function Navbar() {
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-5">
-            {navLinks.map((l) => (
+            {t.navbar.links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -63,35 +57,64 @@ export default function Navbar() {
             >
               {BUSINESS.phone}
             </a>
+
+            {/* Language toggle */}
+            <button
+              onClick={toggle}
+              aria-label={lang === "en" ? "Switch to Spanish" : "Cambiar a Inglés"}
+              className={`flex items-center gap-1.5 border rounded-full px-3 py-1.5 text-xs font-bold transition-all hover:scale-105 ${
+                scrolled
+                  ? "border-slate-300 text-slate-600 hover:border-teal-500 hover:text-teal-600"
+                  : "border-white/40 text-white hover:border-white hover:bg-white/10"
+              }`}
+            >
+              <span className="text-base leading-none">{lang === "en" ? "🇲🇽" : "🇺🇸"}</span>
+              {lang === "en" ? "Español" : "English"}
+            </button>
+
             <Link
               href="/#contact"
               className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition-colors shadow-sm"
             >
-              Free Quote
+              {t.navbar.freeQuote}
             </Link>
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setOpen(!open)}
-            className={`md:hidden p-2 rounded-lg ${scrolled ? "text-slate-700" : "text-white"}`}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-          >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {open ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+          {/* Mobile: lang toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggle}
+              aria-label={lang === "en" ? "Switch to Spanish" : "Cambiar a Inglés"}
+              className={`flex items-center gap-1 border rounded-full px-2.5 py-1 text-xs font-bold transition-colors ${
+                scrolled
+                  ? "border-slate-300 text-slate-600"
+                  : "border-white/40 text-white"
+              }`}
+            >
+              <span>{lang === "en" ? "🇲🇽" : "🇺🇸"}</span>
+              {lang === "en" ? "ES" : "EN"}
+            </button>
+            <button
+              onClick={() => setOpen(!open)}
+              className={`p-2 rounded-lg ${scrolled ? "text-slate-700" : "text-white"}`}
+              aria-label={open ? t.navbar.closeMenu : t.navbar.openMenu}
+              aria-expanded={open}
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {open ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu */}
         {open && (
           <div className="md:hidden bg-white border-t border-slate-100 py-3 shadow-lg">
-            {navLinks.map((l) => (
+            {t.navbar.links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -113,7 +136,7 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 className="bg-teal-600 hover:bg-teal-700 text-white text-center font-semibold py-2.5 rounded-full text-sm transition-colors"
               >
-                Get Free Quote
+                {t.navbar.freeQuote}
               </Link>
             </div>
           </div>
